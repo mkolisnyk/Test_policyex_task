@@ -1,27 +1,23 @@
 package com.policyexpert.sample.lib.actions;
 
-import com.policyexpert.sample.lib.Configuration;
-import com.policyexpert.sample.lib.data.EntryPair;
+import com.policyexpert.sample.lib.data.EntryGroup;
 import org.junit.Assert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import static com.policyexpert.sample.lib.actions.Get.*;
-import static com.policyexpert.sample.lib.actions.Get.sectionButton;
 
 public class Verify {
     public static IVerify asLabelValue = (WebDriver driver, String field, Object value) -> {
         Assert.assertNotNull(label.get(driver, field, value).get(0));
     };
-
+    public static IVerify asErrorLabelValue = (WebDriver driver, String field, Object value) -> {
+        Assert.assertEquals(label.get(driver, field, value).get(0).getText(), value);
+    };
     public static IVerify asTextValue = (WebDriver driver, String field, Object value) -> {
         Assert.assertEquals(text.get(driver, field, value).get(0).getAttribute("value"), value);
     };
@@ -51,7 +47,7 @@ public class Verify {
     };
 
     public static IVerify asFormValues = (WebDriver driver, String field, Object values) -> {
-        HashMap<String, EntryPair> valuesMap = (LinkedHashMap<String, EntryPair>) values;
+        HashMap<String, EntryGroup> valuesMap = (LinkedHashMap<String, EntryGroup>) values;
         valuesMap.forEach((key, value) -> {
             value.getVerifyFunc().check(driver, key, value.getValues());
         });

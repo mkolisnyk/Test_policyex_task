@@ -1,43 +1,42 @@
 package com.policyexpert.sample.tests;
 
-import static com.policyexpert.sample.lib.actions.Populate.*;
-import static com.policyexpert.sample.lib.actions.Verify.*;
-
-import com.policyexpert.sample.lib.Configuration;
+import com.policyexpert.sample.lib.TestCommon;
 import com.policyexpert.sample.lib.data.TestData;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.BrowserType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.URL;
+import static com.policyexpert.sample.lib.actions.Populate.asButton;
+import static com.policyexpert.sample.lib.actions.Populate.asForm;
+import static com.policyexpert.sample.lib.actions.Verify.asFormValues;
+import static com.policyexpert.sample.lib.actions.Verify.asLabelValue;
 
-@RunWith(JUnit4.class)
-public class BasicDataPopulationTest {
-    private WebDriver driver;
-    @Before
-    public void setUp() throws Exception {
-        DesiredCapabilities cap = new DesiredCapabilities();
-//        Driver.add(Configuration.get("browser"), cap);
-//        driver = Driver.current();
-//        driver.get(Configuration.get("url"));
-        cap.setBrowserName(BrowserType.CHROME);
-        driver = new RemoteWebDriver(new URL("http://127.0.0.1:4444/wd/hub"), cap);
-        driver.get(Configuration.get("url"));
-    }
-
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
+public class BasicDataPopulationTest extends TestCommon {
 
     @Test
     public void testPositiveFlow() {
+        asForm.set(driver, null, TestData.defaultTestData);
+        asFormValues.check(driver, null, TestData.defaultTestData);
+        asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
+        asLabelValue.check(driver, "Sorry, quotes unavailable", null);
+    }
+
+    @Test
+    public void testStatementsAboutYouDetailedFill() {
+        asForm.set(driver, null, TestData.defaultTestData);
+        asFormValues.check(driver, null, TestData.defaultTestData);
+        asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
+        asLabelValue.check(driver, "Sorry, quotes unavailable", null);
+    }
+
+    @Test
+    public void testStatementsAboutYourPropertyDetailedFill() {
+        asForm.set(driver, null, TestData.defaultTestData);
+        asFormValues.check(driver, null, TestData.defaultTestData);
+        asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
+        asLabelValue.check(driver, "Sorry, quotes unavailable", null);
+    }
+
+    @Test
+    public void testSafetyAndSecurityFill() {
         asForm.set(driver, null, TestData.defaultTestData);
         asFormValues.check(driver, null, TestData.defaultTestData);
         asButton.set(driver, "Go to compare quotes", "Go to compare quotes");

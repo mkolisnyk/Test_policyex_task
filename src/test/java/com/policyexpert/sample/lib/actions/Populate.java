@@ -1,9 +1,7 @@
 package com.policyexpert.sample.lib.actions;
 
-import static com.policyexpert.sample.lib.actions.Get.*;
-
 import com.policyexpert.sample.lib.Configuration;
-import com.policyexpert.sample.lib.data.EntryPair;
+import com.policyexpert.sample.lib.data.EntryGroup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import static com.policyexpert.sample.lib.actions.Get.*;
 
 public class Populate {
     public static IPopulate asText = (WebDriver driver, String field, Object value) -> {
@@ -56,7 +56,7 @@ public class Populate {
     };
 
     public static IPopulate asForm = (WebDriver driver, String field, Object values) -> {
-        HashMap<String, EntryPair> valuesMap = (LinkedHashMap<String, EntryPair>) values;
+        HashMap<String, EntryGroup> valuesMap = (LinkedHashMap<String, EntryGroup>) values;
         valuesMap.forEach((key, value) -> {
             value.getPopulateFunc().set(driver, key, value.getValues());
         });
