@@ -1,11 +1,11 @@
 package com.policyexpert.sample.tests;
 
+import static com.policyexpert.sample.lib.actions.Populate.*;
+
 import com.policyexpert.sample.lib.Configuration;
-import com.policyexpert.sample.lib.Driver;
-import com.policyexpert.sample.lib.actions.Populate;
 import com.policyexpert.sample.lib.data.BooleanChoiceValue;
+import com.policyexpert.sample.lib.data.TestData;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,12 +38,7 @@ public class BasicDataPopulationTest {
 
     @Test
     public void testPositiveFlow() {
-        Populate.asSelect(driver, "Title", "Mr");
-        Populate.asText(driver, "First name", "Sample");
-        Populate.asText(driver, "Last name", "Name");
-
-        Populate.asButton(driver, "Does anybody living in the property smoke?", BooleanChoiceValue.Yes);
-        String date[] = {"27", "July", "1987"};
-        Populate.asDOBSelect(driver, "What is your date of birth?", date);
+        asForm.set(driver, null, TestData.defaultTestData);
+        asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
     }
 }
