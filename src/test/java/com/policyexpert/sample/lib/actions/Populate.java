@@ -1,5 +1,7 @@
 package com.policyexpert.sample.lib.actions;
 
+import static com.policyexpert.sample.lib.actions.Get.*;
+
 import com.policyexpert.sample.lib.Configuration;
 import com.policyexpert.sample.lib.data.EntryPair;
 import org.openqa.selenium.By;
@@ -12,48 +14,33 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.Map;
 
 public class Populate {
     public static IPopulate asText = (WebDriver driver, String field, Object value) -> {
-        By locator = By.xpath(String.format("//*[contains(text(), '%s')]/../..//input", field));
-        new WebDriverWait(driver, Configuration.timeout()).until(ExpectedConditions.presenceOfElementLocated(locator));
-        driver.findElement(locator).sendKeys(value.toString());
+        text.get(driver, field, value).get(0).sendKeys(value.toString());
     };
 
-    // list-group-item
-
     public static IPopulate asLookupText = (WebDriver driver, String field, Object value) -> {
-        By locator = By.xpath(String.format("//*[contains(text(), '%s')]/../..//input", field));
-        new WebDriverWait(driver, Configuration.timeout()).until(ExpectedConditions.presenceOfElementLocated(locator));
-        driver.findElement(locator).sendKeys(value.toString());
-        locator = By.xpath(String.format("//*[contains(text(), '%s')]/../..//li", field));
+        text.get(driver, field, value).get(0).sendKeys(value.toString());
+        By locator = By.xpath(String.format("//*[contains(text(), '%s')]/../..//li", field));
         new WebDriverWait(driver, Configuration.timeout()).until(ExpectedConditions.presenceOfElementLocated(locator));
         driver.findElement(locator).click();
     };
 
-
     public static IPopulate asSelect = (WebDriver driver, String field, Object value) -> {
-        By locator = By.xpath(String.format("//*[contains(text(), '%s')]/../..//select", field));
-        new WebDriverWait(driver, Configuration.timeout()).until(ExpectedConditions.presenceOfElementLocated(locator));
-        Select select = new Select(driver.findElement(locator));
-        select.selectByVisibleText(value.toString());
+        Select selectControl = new Select(select.get(driver, field, value).get(0));
+        selectControl.selectByVisibleText(value.toString());
     };
     public static IPopulate asDOBSelect = (WebDriver driver, String field, Object values) -> {
-        int index = 1;
+        int index = 0;
         for(String value : (String[])values) {
-            By locator = By.xpath(String.format("(//*[contains(text(), '%s')]/../..//select)[%d]", field, index));
-            new WebDriverWait(driver, Configuration.timeout()).until(ExpectedConditions.presenceOfElementLocated(locator));
-            Select select = new Select(driver.findElement(locator));
-            select.selectByVisibleText(value);
+            Select selectControl = new Select(select.get(driver, field, value).get(index));
+            selectControl.selectByVisibleText(value);
             index++;
         }
     };
     public static IPopulate asButton = (WebDriver driver, String field, Object value) -> {
-        By locator = By.xpath(String.format("//*[contains(text(), '%s')]/..//button[text() = '%s'] |" +
-                " //*[contains(text(), '%s')]/../..//button[text() = '%s']", field, value.toString(), field, value.toString()));
-        new WebDriverWait(driver, Configuration.timeout()).until(ExpectedConditions.presenceOfElementLocated(locator));
-        WebElement element = driver.findElement(locator);
+        WebElement element = button.get(driver, field, value).get(0);
         Actions actions = new Actions(driver);
         actions.moveToElement(element);
         actions.perform();
@@ -61,11 +48,7 @@ public class Populate {
     };
 
     public static IPopulate asSectionButton = (WebDriver driver, String field, Object value) -> {
-        By locator = By.xpath(String.format("//*[contains(text(), '%s')]/..//button[text() = '%s']",
-                field, value.toString(), field, value.toString()));
-
-        new WebDriverWait(driver, Configuration.timeout()).until(ExpectedConditions.presenceOfElementLocated(locator));
-        WebElement element = driver.findElement(locator);
+        WebElement element = sectionButton.get(driver, field, value).get(0);
         Actions actions = new Actions(driver);
         actions.moveToElement(element);
         actions.perform();

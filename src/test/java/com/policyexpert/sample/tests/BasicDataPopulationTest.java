@@ -1,9 +1,9 @@
 package com.policyexpert.sample.tests;
 
 import static com.policyexpert.sample.lib.actions.Populate.*;
+import static com.policyexpert.sample.lib.actions.Verify.*;
 
 import com.policyexpert.sample.lib.Configuration;
-import com.policyexpert.sample.lib.data.BooleanChoiceValue;
 import com.policyexpert.sample.lib.data.TestData;
 import org.junit.After;
 import org.junit.Before;
@@ -33,12 +33,14 @@ public class BasicDataPopulationTest {
 
     @After
     public void tearDown() {
-        // driver.quit();
+        driver.quit();
     }
 
     @Test
     public void testPositiveFlow() {
         asForm.set(driver, null, TestData.defaultTestData);
+        asFormValues.check(driver, null, TestData.defaultTestData);
         asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
+        asLabelValue.check(driver, "Sorry, quotes unavailable", null);
     }
 }
