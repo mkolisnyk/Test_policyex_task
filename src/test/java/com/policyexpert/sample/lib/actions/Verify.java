@@ -16,7 +16,7 @@ public class Verify {
         Assert.assertNotNull(label.get(driver, field, value).get(0));
     };
     public static IVerify asErrorLabelValue = (WebDriver driver, String field, Object value) -> {
-        Assert.assertEquals(label.get(driver, field, value).get(0).getText(), value);
+        Assert.assertEquals(errorLabel.get(driver, field, value).get(0).getText(), value);
     };
     public static IVerify asTextValue = (WebDriver driver, String field, Object value) -> {
         Assert.assertEquals(text.get(driver, field, value).get(0).getAttribute("value"), value);
@@ -36,12 +36,18 @@ public class Verify {
     };
     public static IVerify asButtonState = (WebDriver driver, String field, Object value) -> {
         WebElement element = button.get(driver, field, value).get(0);
-        Assert.assertEquals(element.getAttribute("data-testid"), "selected");
+        Assert.assertEquals(
+                String.format("Failed to verify '%s' button '%s' state", field, value),
+                "selected",
+                element.getAttribute("data-testid"));
     };
 
     public static IVerify asSectionButtonState = (WebDriver driver, String field, Object value) -> {
         WebElement element = sectionButton.get(driver, field, value).get(0);
-        Assert.assertEquals(element.getAttribute("data-testid"), "selected");
+        Assert.assertEquals(
+                String.format("Failed to verify '%s' section button '%s' state", field, value),
+                "selected",
+                element.getAttribute("data-testid"));
     };
     public static IVerify asNothing = (WebDriver driver, String field, Object value) -> {
     };

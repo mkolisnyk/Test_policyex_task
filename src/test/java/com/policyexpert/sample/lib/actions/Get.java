@@ -13,7 +13,7 @@ public class Get {
         return driver.findElements(locator);
     };
     public static IGet errorLabel = (WebDriver driver, String field, Object value) -> {
-        By locator = By.xpath(String.format("//*[contains(text(), '%s')]/../..//span[@data-testid='error'", field));
+        By locator = By.xpath(String.format("//*[contains(text(), '%s')]/../..//span[@data-testid='error']", field));
         new WebDriverWait(driver, Configuration.timeout()).until(ExpectedConditions.presenceOfElementLocated(locator));
         return driver.findElements(locator);
     };

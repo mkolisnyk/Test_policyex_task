@@ -1,18 +1,18 @@
 package com.policyexpert.sample.lib.data;
 import com.policyexpert.sample.lib.data.questions.AboutYouQuestions;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static com.policyexpert.sample.lib.actions.Populate.*;
 import static com.policyexpert.sample.lib.actions.Verify.*;
 
 public class TestData {
 
-    public static  String defaultEmail = "vketipisz@qmetric.co.uk";
-    public static String defaultAddress = "Autonomy Capital Research LLP, 110 Bishopsgate, London, EC2N 4AY";
+    public static final String defaultEmail = "vketipisz@qmetric.co.uk";
+    public static final String defaultAddress = "Autonomy Capital Research LLP, 110 Bishopsgate, London, EC2N 4AY";
 
-    public static HashMap<String, EntryGroup> defaultTestData = new LinkedHashMap<String, EntryGroup>() {
+    public static final Map<String, EntryGroup> defaultTestData = new LinkedHashMap<String, EntryGroup>() {
         {
             put(AboutYouQuestions.Title, new EntryGroup(asSelect, asSelectedValue,"Mr"));
             put(AboutYouQuestions.FirstName, new EntryGroup(asText, asTextValue,"Sample"));
