@@ -32,5 +32,4 @@ repositories {
 dependencies {
     compile 'junit:junit:4.12'
     compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
-    // compile 'xml-apis:xml-apis:1.4.01'
 }
