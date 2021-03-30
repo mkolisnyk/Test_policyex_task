@@ -47,12 +47,22 @@ public class BasicDataPopulationTest extends TestCommon {
         asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
         asLabelValue.check(driver, "Sorry, quotes unavailable", null);
     }
-    // @Test
+    @Test
     public void testStatementsAboutYouDetailedFillDetails() {
-        Map<String, EntryGroup> testData = TestData.defaultTestData;
+        Map<String, EntryGroup> testData = new LinkedHashMap<String, EntryGroup>() {
+            {
+                putAll(TestData.defaultTestData);
+            }
+        };
         testData.put(StatementAboutYouQuestions.isNotForBusinessPurposes, new EntryGroup(asButton, asButtonState, BooleanChoiceValue.IDisagree));
+        testData.put(StatementAboutYouQuestions.whatTypeOfBusiness, new EntryGroup(asSelect, asSelectedValue, "Other"));
+        testData.put(StatementAboutYouQuestions.numberOfEmployees, new EntryGroup(asSelect, asSelectedValue, "5"));
+        testData.put(StatementAboutYouQuestions.numberOfDailyVisitors, new EntryGroup(asSelect, asSelectedValue, "20"));
 
         testData.put(StatementAboutYouQuestions.isNoneDeclaredBankrupcy, new EntryGroup(asButton, asButtonState, BooleanChoiceValue.IDisagree));
+        testData.put(StatementAboutYouQuestions.bankrupsyType, new EntryGroup(asSelect, asSelectedValue, "Commercial"));
+        testData.put(StatementAboutYouQuestions.hasBeenDischarged, new EntryGroup(asButton, asButtonState, BooleanChoiceValue.No));
+        testData.put(StatementAboutYouQuestions.dischargeDate, new EntryGroup(asText, asTextValue, "2020-10-05"));
 
         testData.put(StatementAboutYouQuestions.isNoneInsuranceDeclined, new EntryGroup(asButton, asButtonState, BooleanChoiceValue.IDisagree));
 
@@ -61,6 +71,8 @@ public class BasicDataPopulationTest extends TestCommon {
         testData.put(StatementAboutYouQuestions.isNoneServedCountryCourtJudgement, new EntryGroup(asButton, asButtonState, BooleanChoiceValue.IDisagree));
 
         testData.put(StatementAboutYouQuestions.isNoneConvictedWithAnyOffence, new EntryGroup(asButton, asButtonState, BooleanChoiceValue.IDisagree));
+        testData.put(StatementAboutYouQuestions.numberOfCCJs, new EntryGroup(asSelect, asSelectedValue, "1"));
+        testData.put(StatementAboutYouQuestions.valueOfCCJ, new EntryGroup(asSelect, asSelectedValue, "Below £1,000"));
 
         asForm.set(driver, null, TestData.defaultTestData);
         testData.remove("Statements about you");
@@ -94,22 +106,6 @@ public class BasicDataPopulationTest extends TestCommon {
 
         testData.remove("Statements about your property");
         asFormValues.check(driver, null, testData);
-        asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
-        asLabelValue.check(driver, "Sorry, quotes unavailable", null);
-    }
-
-    // @Test
-    public void testStatementsAboutYourPropertyDetailedFill() {
-        asForm.set(driver, null, TestData.defaultTestData);
-        asFormValues.check(driver, null, TestData.defaultTestData);
-        asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
-        asLabelValue.check(driver, "Sorry, quotes unavailable", null);
-    }
-
-    // @Test
-    public void testSafetyAndSecurityFill() {
-        asForm.set(driver, null, TestData.defaultTestData);
-        asFormValues.check(driver, null, TestData.defaultTestData);
         asButton.set(driver, "Go to compare quotes", "Go to compare quotes");
         asLabelValue.check(driver, "Sorry, quotes unavailable", null);
     }
